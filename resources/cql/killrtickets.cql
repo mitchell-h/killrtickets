@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS killrTickets.events_by_id ( event_id uuid,
                             name text,
                             date TIMESTAMP,
                             venue uuid,
+                            genre text,
                             PRIMARY KEY (name, date));
 
 CREATE TABLE IF NOT EXISTS killrTickets.seats_by_venue ( event_id uuid,
@@ -16,6 +17,7 @@ CREATE TABLE IF NOT EXISTS killrTickets.seats_by_venue ( event_id uuid,
                   row text,
                   seat text,
                   taken boolean,
+                  date_taken TIMESTAMP,
                   primary key ((section, seat), row, event_id));
 
 #INSERT INTO seats_by_venue (event_id, section, row, seat, taken) VALUES (cd896ed9-35a5-4019-81ec-2cb8cb6bbaba, '1', '1', '1', false);
