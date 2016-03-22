@@ -34,8 +34,11 @@ $ curl "http://localhost:8983/solr/admin/cores?action=CREATE&name=killrtickets.e
 CONFIGURE BANANA
 
 Download banana_release.zip from: https://github.com/lucidworks/banana/archive/release.zip
+
 Copy to [dse_home]/solr/web/demos and unzip
+
 Open browser and navigate to: http://localhost:8983/demos/banana_release/src/index.html#/dashboard
+
 In the upper Right corner click the “Load” icon and open the killrtickets_dashboard file
 
 
