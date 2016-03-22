@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<schema name="autoSolrSchema" version="1.5">
+<types>
+<fieldType class="org.apache.solr.schema.BoolField" name="BoolField"/>
+<fieldType class="org.apache.solr.schema.StrField" name="StrField"/>
+<fieldType class="org.apache.solr.schema.TrieDateField" name="TrieDateField"/>
+<fieldType class="org.apache.solr.schema.TextField" name="TextField">
+<analyzer>
+<tokenizer class="solr.StandardTokenizerFactory"/>
+<filter class="solr.LowerCaseFilterFactory"/>
+</analyzer>
+</fieldType>
+</types>
+<fields>
+<field indexed="true" multiValued="false" name="taken" stored="true" type="BoolField"/>
+<field indexed="true" multiValued="false" name="row" stored="true" type="StrField"/>
+<field indexed="true" multiValued="false" name="venue_location" stored="true" type="StrField"/>
+<field indexed="true" multiValued="false" name="seat" stored="true" type="StrField"/>
+<field indexed="true" multiValued="false" name="event_date" stored="true" type="TrieDateField"/>
+<field indexed="true" multiValued="false" name="venue_name" stored="true" type="TextField"/>
+<field indexed="true" multiValued="false" name="section" stored="true" type="StrField"/>
+<field indexed="true" multiValued="false" name="date_taken" stored="true" type="TrieDateField"/>
+<field indexed="true" multiValued="false" name="event_name" stored="true" type="StrField"/>
+<field indexed="true" multiValued="false" name="genre" stored="true" type="TextField"/>
+</fields>
+<uniqueKey>(event_name,venue_location,event_date,section,row,seat)</uniqueKey>
+</schema>
