@@ -1,0 +1,82 @@
+### DML ### THIS IS UNDER CONSTRUCTION!!!
+ 
+# Keyspace Name
+keyspace: killrtickets 
+ 
+# Table name
+table: event_by_location 
+ 
+### Column Distribution Specifications ###
+ 
+columnspec:
+  - name: venue_name
+    size: gaussian(5..40)
+    population: gaussian(1..3)
+ 
+  - name: venue_location
+    size: gaussian(10..15)
+    population: gaussian(1..4)
+ 
+  - name: event_name
+    size: gaussian(6..40)
+    population: fixed(1)
+ 
+  - name: event_date
+    size: fixed(8)
+    population: gaussian(1..2)
+ 
+  - name: genre
+    size: gaussian(3..7)
+    population: gaussian(1..10)
+ 
+  - name: section
+    size: fixed(4)
+    population: gaussian(1..48)
+ 
+  - name: row
+    size: fixed(4) 
+    population: fixed(12)
+ 
+  - name: seat
+    size: fixed(1)
+    population: fixed(84)
+ 
+  - name: taken
+    size: fixed(4)
+    population: fixed(2)
+ 
+  - name: date_taken
+    size: fixed(8)
+    population: gaussian(1..12)
+ 
+
+   
+### Batch Ratio Distribution Specifications ###
+ 
+insert:
+  partitions: fixed(1)            # Our partition key is the domain so only insert one per batch
+ 
+  select:  fixed(1)/1000        # We have 1000 posts per domain so 1/1000 will allow 1 post per batch  
+ 
+  batchtype: UNLOGGED             # Unlogged batches
+ 
+ 
+#
+# A list of queries you wish to run against the schema
+#
+queries:
+   likelyquery0: 
+    cql: SELECT * FROM  WHERE venue_location = ? AND event_name = ?
+    fields: samerow
+   likelyquery1: 
+    cql: SELECT * FROM  WHERE venue_location = ? AND event_name = ? AND event_date = ?
+    fields: samerow
+   likelyquery2: 
+    cql: SELECT * FROM  WHERE venue_location = ? AND event_name = ? AND event_date = ? AND section = ?
+    fields: samerow
+   likelyquery3: 
+    cql: SELECT * FROM  WHERE venue_location = ? AND event_name = ? AND event_date = ? AND section = ? AND row = ?
+    fields: samerow
+   likelyquery4: 
+    cql: SELECT * FROM  WHERE venue_location = ? AND event_name = ? AND event_date = ? AND section = ? AND row = ? AND seat = ?
+    fields: samerow
