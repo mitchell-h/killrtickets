@@ -1,33 +1,45 @@
-CREATE KEYSPACE IF NOT EXISTS killrTickets WITH replication = {'class': 'NetworkTopologyStrategy', 'dc1': 1 };
+CREATE KEYSPACE IF NOT EXISTS killrTickets WITH replication = {'class': 'NetworkTopologyStrategy', 'Cassandra': 1 };
 
 CREATE TABLE IF NOT EXISTS killrTickets.venue_by_id ( id uuid,
                           venue_name text,
                           venue_location text,
-                          PRIMARY KEY (venue_name,id));
+                          lat int,
+                          lon int,
+                          PRIMARY KEY (venue_name, id));
 
-CREATE TABLE IF NOT EXISTS killrTickets.events_by_id ( event_id uuid,
-                            name text,
-                            date TIMESTAMP,
-                            venue uuid,
-                            genre text,
-                            PRIMARY KEY (name, date));
+#CREATE TABLE IF NOT EXISTS killrTickets.events_by_id ( event_id uuid,
+#                           name text,
+#                            date TIMESTAMP,
+#                            venue uuid,
+#                            genre text,
+#                            lat text,
+#                            lon text,
+#                            PRIMARY KEY (name, date));
+
+CREATE TABLE IF NOT EXISTS killrtickets.event_by_location (
+     event_name text,
+     venue_location text,
+     event_date timestamp,
+     section text,
+     row text,
+     seat text,
+     date_taken timestamp,
+     genre text,
+     taken boolean,
+     venue_name text,
+     lat text,
+     lon text,
+     PRIMARY KEY ((event_name, venue_location), event_date, section, row, seat)
+);
 
 CREATE TABLE IF NOT EXISTS killrTickets.seats_by_venue ( event_id uuid,
-                  section text,
-                  row text,
-                  seat text,
-                  taken boolean,
-                  date_taken TIMESTAMP,
-                  primary key ((section, seat), row, event_id));
+                      section text,
+                      row text,
+                      seat text,
+                      taken boolean,
+                      date_taken TIMESTAMP,
+                      primary key ((event_id, section), row, seat));
 
-#INSERT INTO seats_by_venue (event_id, section, row, seat, taken) VALUES (cd896ed9-35a5-4019-81ec-2cb8cb6bbaba, '1', '1', '1', false);
-#INSERT INTO seats_by_venue (event_id, section, row, seat, taken) VALUES (cd896ed9-35a5-4019-81ec-2cb8cb6bbaba, '1', '1', '2', false);
-#INSERT INTO seats_by_venue (event_id, section, row, seat, taken) VALUES (cd896ed9-35a5-4019-81ec-2cb8cb6bbaba, '1', '1', '3', false);
-#INSERT INTO seats_by_venue (event_id, section, row, seat, taken) VALUES (cd896ed9-35a5-4019-81ec-2cb8cb6bbaba, '1', '1', '4', false);
-#INSERT INTO seats_by_venue (event_id, section, row, seat, taken) VALUES (cd896ed9-35a5-4019-81ec-2cb8cb6bbaba, '1', '1', '5', false);
-#INSERT INTO seats_by_venue (event_id, section, row, seat, taken) VALUES (cd896ed9-35a5-4019-81ec-2cb8cb6bbaba, '1', '1', '6', false);
-#INSERT INTO seats_by_venue (event_id, section, row, seat, taken) VALUES (cd896ed9-35a5-4019-81ec-2cb8cb6bbaba, '1', '1', '7', false);
-#INSERT INTO seats_by_venue (event_id, section, row, seat, taken) VALUES (cd896ed9-35a5-4019-81ec-2cb8cb6bbaba, '1', '1', '8', false);
-#INSERT INTO seats_by_venue (event_id, section, row, seat, taken) VALUES (cd896ed9-35a5-4019-81ec-2cb8cb6bbaba, '1', '1', '9', false);
 
-#UPDATE seats_by_venue SET taken = true where event_id = cd896ed9-35a5-4019-81ec-2cb8cb6bbaba AND section = '1' AND seat = '3' AND row = '1' IF taken = false;
+# need to dsetool create_core killrTickets.events_by_id
+# needed for solr searching of event name.
