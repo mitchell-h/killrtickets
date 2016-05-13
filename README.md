@@ -43,5 +43,24 @@ In the upper Right corner click the “Load” icon and open the killrtickets_da
 
 
 
+Application:
+
+The star of the show, light weight transactions.
+
+'UPDATE killrTickets.seats_by_venue SET taken = True where event_id = 303b988c-1895-11e6-b7ee-a45e60df86d9 AND  section = '10' AND row = '1' and seat = '1' IF taken = False;'
+
+User work flow is pretty simple.  
+
+User selects an event they'd like to see.  
+
+Selects a section they'd like to sit in.  We pull that section data back and verify there are seats avilable.
+
+We issue a request to the queue works to purchase the seats.  
+
+If seat purchase fails for any of the seats we back out the changes.
+
+
+
+We also use the geospacial searching ability of DSE Search to recommond other shows near the event.
 
 
